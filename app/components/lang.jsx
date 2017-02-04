@@ -60,7 +60,6 @@ export default React.createClass({
             <p onClick={this.handleClick} style={{cursor: 'pointer'}}>
                 <FormattedMessage
                     id='text'
-                    tagName='div'
                     description='say hello to Howard'
                     defaultMessage='Hello, { data }!'
                     values={{'data': this.state.data}}

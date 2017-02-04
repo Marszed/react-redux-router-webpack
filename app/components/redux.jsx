@@ -2,7 +2,7 @@
  * Created by marszed on 2017/1/24.
  */
 import React from 'react';
-import ajax from '../http/ajax';
+import { asyncCall } from '../http/ajax';
 import { connect } from 'react-redux';
 import {inputUsername, inputPassword, asyncData, asyncActionData} from '../redux/actions/redux'
 
@@ -17,29 +17,20 @@ function mapStateToProps(state) {
     };
 }
 
-function asyncCall(url,data,fun,obj){
-
-}
 
 let redux = React.createClass({
     handleClickAsync: function(event){
-        ajax.post('http://123.57.152.75:8051/ifsys/getAllSysInfo.do',{
+        let response = asyncCall({
+            url: 'http://123.57.152.75:8051/ifsys/getAllSysInfo.do',
+            method: 'post',
             data: {
                 type: 'all',
                 userName: this.refs.userName.value, // 通过ref获取用户输入的用户名
                 passWord: this.props.password // 通过store获取用户输入的密码
-            }
-        }).then(function (response) {
-            console.log(response);
-            if(response.status == 200 && response.data.rspCd == '00000'){
-                this.props.dispatch(asyncData(response.data)); // 派发action
-            }
-        }.bind(this)).catch(function (error) {
-            this.setState({
-                data: '服务器异常，数据获取失败'
-            });
-            console.log(error);
-        }.bind(this));
+            },
+            log: '获取系统列表信息出错'
+        });
+        console.log(response)
     },
     handleClickAsyncAction: function(event){
         this.props.dispatch(asyncActionData({
