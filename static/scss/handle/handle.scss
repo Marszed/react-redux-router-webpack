@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+$handleColor: green !default;
+
+.handle-box{
+  & > h5{
+    color: $handleColor;
+    margin: 10px 0;
+  }
+  .default{
+    color: #666;
+    background-color: #fff;
+    border: 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .active{
+    @extend .default;
+    color: gold;
+  }
+}

@@ -1,0 +1,1 @@
+webpackJsonp([1],{385:function(e,t,u){"use strict";function r(e){return e&&e.__esModule?e:{default:e}}Object.defineProperty(t,"__esModule",{value:!0});var n=u(79),a=r(n);t.default=a.default.createClass({displayName:"redux",render:function(){return a.default.createElement("h1",null,"/redux")}})}});

@@ -1,0 +1,8 @@
+.homepage-nav{
+    font-size: 22px;
+    color: red;
+}
+
+.homepage-nav .active-nav{
+    color: red;
+}
