@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 
 let redux = React.createClass({
     handleClickAsync: function(event){
-        let response = asyncCall({
+        let data = {
             url: 'http://123.57.152.75:8051/ifsys/getAllSysInfo.do',
             method: 'post',
             data: {
@@ -29,8 +29,12 @@ let redux = React.createClass({
                 passWord: this.props.password // 通过store获取用户输入的密码
             },
             log: '获取系统列表信息出错'
-        });
-        console.log(response)
+        };
+        function test(obj){
+            console.log(obj);
+            return obj;
+        }
+        asyncCall(test);
     },
     handleClickAsyncAction: function(event){
         this.props.dispatch(asyncActionData({

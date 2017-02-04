@@ -17,50 +17,59 @@ import env from '../config/env';
  * @param obj.auth 请求头
  * @param obj.log 自定义错误日志
  */
-export function asyncCall(obj){
-    console.log(obj)
-    return axios.request({
-        // `url` is the server URL that will be used for the request
-        url: obj.url,
+function asyncCallPromise(obj){
+    return new Promise(function(resolve) {
+        axios.request({
+            // `url` is the server URL that will be used for the request
+            url: obj.url,
 
-        // `method` is the request method to be used when making the request
-        method: obj.method, // default
+            // `method` is the request method to be used when making the request
+            method: obj.method, // default
 
-        // `baseURL` will be prepended to `url` unless `url` is absolute.
-        // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
-        // to methods of that instance.
-        baseURL: obj.baseURL || env.config.origin,
+            // `baseURL` will be prepended to `url` unless `url` is absolute.
+            // It can be convenient to set `baseURL` for an instance of axios to pass relative URLs
+            // to methods of that instance.
+            baseURL: obj.baseURL || env.config.origin,
 
-        // Override timeout default for the library
-        // Now all requests will wait 16 seconds before timing out
-        timeout: obj.timeout || 16000,
-        // `data` is the data to be sent as the request body
-        // Only applicable for request methods 'PUT', 'POST', and 'PATCH'
-        // When no `transformRequest` is set, must be of one of the following types:
-        // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
-        // - Browser only: FormData, File, Blob
-        // - Node only: Stream
-        data: obj.data ? obj.data : '',
+            // Override timeout default for the library
+            // Now all requests will wait 16 seconds before timing out
+            timeout: obj.timeout || 16000,
+            // `data` is the data to be sent as the request body
+            // Only applicable for request methods 'PUT', 'POST', and 'PATCH'
+            // When no `transformRequest` is set, must be of one of the following types:
+            // - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams
+            // - Browser only: FormData, File, Blob
+            // - Node only: Stream
+            data: obj.data ? obj.data : '',
 
-        // `params` are the URL parameters to be sent with the request
-        // Must be a plain object or a URLSearchParams object
-        params: obj.params ? obj.params : '',
+            // `params` are the URL parameters to be sent with the request
+            // Must be a plain object or a URLSearchParams object
+            params: obj.params ? obj.params : '',
 
-        // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
-        // This will set an `Authorization` header, overwriting any existing
-        // `Authorization` custom headers you have set using `headers`.
-        auth: obj.auth ? obj.auth : '',
-    }).then(function (response) {
-        if(response.status == 200 && response.data.rspCd == '00000'){
-            return response.data;
-        }
-        console.log(response);
-        return 'err'
-    }).catch(function (error) {
-        console.log(error,obj.log);
-        return 'err';
+            // `auth` indicates that HTTP Basic auth should be used, and supplies credentials.
+            // This will set an `Authorization` header, overwriting any existing
+            // `Authorization` custom headers you have set using `headers`.
+            auth: obj.auth ? obj.auth : '',
+        }).then(function (response) {
+            if(response.status == 200 && response.data.rspCd == '00000'){
+                resolve(response);
+            }
+            resolve('err');
+        }).catch(function (error) {
+            resolve('err');
+        });
     });
+
 }
+
+async function asyncCallPromiseComputer(obj){
+  return await asyncCallPromise(obj);
+}
+
+export function asyncCall(obj) {
+    return asyncCallPromiseComputer(obj);
+}
+
 
 /**
  * ajax synchronous call

@@ -32,8 +32,9 @@ let config = {
                 test: /\.(jsx|js)$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
+                plugins: ['transform-runtime'],
                 query: {
-                    presets: ['react', 'es2015']
+                    presets: ['es2015', 'stage-0', 'react']
                 }
             },
             // CSS
