@@ -58,7 +58,13 @@ let routes = <Route path="/" component={App}>
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/test").default)
-            },"child")
+            },"test")
+        }}/>
+    <Route path="validation" getComponent={
+        (nextState,callback)=>{
+            require.ensure([],(require)=>{
+                callback(null,require("./components/validation").default)
+            },"validation")
         }}/>
 </Route>;
 

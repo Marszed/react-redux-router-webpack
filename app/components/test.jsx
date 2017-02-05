@@ -11,10 +11,14 @@ function mapStateToProps(state) {
     return Object.assign({}, state.redux)
 }
 
-let test = React.createClass({
-    render: function() {
+class test extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {name: 'test'};
+    }
+    render() {
         return <div>
-            <h5>跨路由测试store中的数据</h5>
+            <h5>跨路由测试store中的数据--->{this.state.name}</h5>
             <div>{
                 !this.props.asyncData.sysList ? '暂无数据' :
                     this.props.asyncData.sysList.map(function(data,index){
@@ -23,6 +27,6 @@ let test = React.createClass({
             }</div>
         </div>;
     }
-});
+}
 
 export default connect(mapStateToProps)(test);

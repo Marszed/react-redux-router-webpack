@@ -15,6 +15,7 @@ export default class home extends React.Component {
                 <li><Link to="/lang" activeClassName="active-nav">国际化</Link></li>
                 <li><Link to="/redux" activeClassName="active-nav">redux运用</Link></li>
                 <li><Link to="/test" activeClassName="active-nav">router运用</Link></li>
+                <li><Link to="/validation" activeClassName="active-nav">validation运用</Link></li>
             </ul>
         </div>;
     }

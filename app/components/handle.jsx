@@ -2,7 +2,7 @@
  * Created by zhuo on 2017/1/24.
  */
 import React from 'react';
-import ajax from '../http/ajax';
+import { asyncCall } from '../http/ajax';
 import '../../static/scss/handle/handle'
 
 let handleBox = React.createClass({
@@ -40,23 +40,19 @@ let handleBox = React.createClass({
         });
     },
     handleGetData: function(){
-        ajax.get('http://123.57.152.75:8051/ifsys/getAllSysInfo.do',{
+        let asyncCallResponse = function(response){
+            this.setState({
+                data: JSON.stringify(response.data)
+            });
+        }.bind(this);
+        asyncCall({
+            url: 'http://123.57.152.75:8051/ifsys/getAllSysInfo.do',
+            method: 'post',
             data: {
                 type: 'all'
-            }
-        }).then(function (response) {
-            console.log(response);
-            if(response.status == 200 && response.data.rspCd == '00000'){
-                this.setState({
-                    data: JSON.stringify(response.data)
-                });
-            }
-        }.bind(this)).catch(function (error) {
-            this.setState({
-                data: '服务器异常，数据获取失败'
-            });
-            console.log(error);
-        }.bind(this));
+            },
+            log: '获取系统列表信息出错'
+        },asyncCallResponse);
     },
     /**
      * 组件生命走起的三种状态

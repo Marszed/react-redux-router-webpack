@@ -17,8 +17,7 @@ import env from '../config/env';
  * @param obj.auth 请求头
  * @param obj.log 自定义错误日志
  */
-export function asyncCall(obj){
-    console.log(obj)
+export function asyncCall(obj,fn){
     return axios.request({
         // `url` is the server URL that will be used for the request
         url: obj.url,
@@ -52,19 +51,18 @@ export function asyncCall(obj){
         auth: obj.auth ? obj.auth : '',
     }).then(function (response) {
         if(response.status == 200 && response.data.rspCd == '00000'){
-            return response.data;
+            return fn(response);
         }
-        console.log(response);
-        return 'err'
+        return fn('err');
     }).catch(function (error) {
         console.log(error,obj.log);
-        return 'err';
+        return fn('err');
     });
 }
 
 /**
  * ajax synchronous call
- * @param obj   异步请求配置
+ * @param obj   同步请求配置
  * @param obj.url   请求地址
  * @param obj.baseURL 请求地址基础路径可被绝对请求路径覆盖
  * @param obj.timeout 超时时间设置
@@ -75,8 +73,8 @@ export function asyncCall(obj){
  * @param obj.auth 请求头
  * @param obj.log 自定义错误日志
  */
-export function synchronous(obj){
-    axios.request({
+export function synchronous(obj,fn){
+    return axios.request({
         // `url` is the server URL that will be used for the request
         url: obj.url,
 
@@ -109,13 +107,12 @@ export function synchronous(obj){
         auth: obj.auth ? obj.auth : '',
     }).then(function (response) {
         if(response.status == 200 && response.data.rspCd == '00000'){
-            return response.data;
+            return fn(response);
         }
-        console.log(response);
-        return 'err'
+        return fn('err');
     }).catch(function (error) {
         console.log(error,obj.log);
-        return 'err';
+        return fn('err');
     });
 }
 

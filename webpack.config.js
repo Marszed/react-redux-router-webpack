@@ -1,3 +1,4 @@
+require("babel-polyfill");
 const webpack = require('webpack');
 const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
