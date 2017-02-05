@@ -26,6 +26,7 @@ export default React.createClass({
         return <div>
             <h5>日期时间</h5>
             <p>
+                {}
                 <FormattedDate
                     value={new Date(1486098415898)}
                 />

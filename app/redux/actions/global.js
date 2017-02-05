@@ -8,14 +8,21 @@ export const INPUT_USERNAME = 'INPUT_USERNAME';
 export const INPUT_PASSWORD = 'INPUT_PASSWORD';
 export const ASYNC_DATA = 'ASYNC_DATA';
 export const ASYNC_ACTION_DATA = 'ASYNC_ACTION_DATA';
+export const LOGIN_INFO = 'LOGIN_INFO';
+
 
 export const inputUsername = createAction(INPUT_USERNAME, 'value');
 export const inputPassword = createAction(INPUT_PASSWORD, 'value');
 export const asyncData = createAction(ASYNC_DATA, 'value');
+export const loginInfo = createAction(LOGIN_INFO, 'value');
 
 const asyncActionDataTemp = createAction(ASYNC_ACTION_DATA, 'value');
+
 export const asyncActionData = function(obj){
     return dispatch => {
+        console.log('dispatch--------------------------');
+        console.log(dispatch)
+        console.log(this)
         let asyncCallResponse = function(response){
             dispatch(asyncActionDataTemp(response.data)); // 派发action
         };

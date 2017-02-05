@@ -3,12 +3,14 @@
  */
 import { createStore, combineReducers, applyMiddleware  } from 'redux';
 import thunk from 'redux-thunk';
+import login from '../reducers/login';
 import redux from '../reducers/redux';
 import { logger, crashReporter } from '../middleware/logger';
 
 
 const reducers = {
-    redux
+    redux,
+    login
 };
 
 let store = createStore(

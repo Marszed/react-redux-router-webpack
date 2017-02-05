@@ -4,8 +4,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+import { Router, Route, hashHistory, IndexRoute, onLeave } from 'react-router';
 import store from './redux/store/global';
+
+/**
+ * 引入全局公用样式
+ */
+import '../static/css/DanUI.css'
+import '../static/css/ipxfont.css'
+import '../static/css/ipx_develp_main.css'
 
 /**
  * 国际化
@@ -23,7 +30,7 @@ let globalDefaultLang = (Tool.langPackageInject() === 'zhCN') ? globalZHCN : glo
  * 自定义组件
  */
 import App from './components/app.jsx';
-import Home from './components/home.jsx';
+import Login from './components/login/login.jsx';
 
 /**
  * 自定义工具方法库
@@ -35,7 +42,19 @@ import Tool from './lib/tool';
  * 通过getComponent做路由懒加载
  */
 let routes = <Route path="/" component={App}>
-    <IndexRoute component={Home}/>
+    <IndexRoute component={Login}/>
+    <Route path="home"
+           getComponent = {(nextState,callback)=>{
+                require.ensure([],(require)=>{
+                    callback(null,require("./components/home").default)
+                },"home")
+            }}/>
+    <Route path="handle" name="新数据" getComponent={
+        (nextState,callback)=>{
+            require.ensure([],(require)=>{
+                callback(null,require("./components/handle").default)
+            },"handle")
+        }}/>
     <Route path="handle" name="新数据" getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{

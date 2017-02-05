@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* DANUI */
+
+* {padding:0; margin:0; font-family:Arial, "Microsoft Yahei", 微软雅黑}
+*:hover {-moz-transition: color .3s linear,background-color .3s linear; -webkit-transition: color .3s linear,background-color .3s linear; -o-transition: color .3s linear,background-color .3s linear; transition: color .3s linear,background-color .3s linear}
+img {border:none}
+input,textarea,button,select {outline:none}
+a {text-decoration:none}
+ol,ul,li {list-style:none;}
+::-moz-selection{background:#00afb4; color:#fff;}
+::selection {background:#00afb4; color:#fff;} 
+
+
+

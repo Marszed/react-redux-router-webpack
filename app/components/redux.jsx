@@ -4,7 +4,7 @@
 import React from 'react';
 import { asyncCall } from '../http/ajax';
 import { connect } from 'react-redux';
-import {inputUsername, inputPassword, asyncData, asyncActionData} from '../redux/actions/redux'
+import {inputUsername, inputPassword, asyncData, asyncActionData} from '../redux/actions/global'
 
 // 将state.data绑定到相应的React组件的Props的data
 // 此处的state[redux] 对应的是 store中reducers一个reducer生成的元数据

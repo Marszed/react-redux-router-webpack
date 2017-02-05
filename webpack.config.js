@@ -3,7 +3,20 @@ const webpack = require('webpack');
 const path = require('path');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 
+console.log('<<========***************===========>>');
+console.log('当前环境'+process.env.NODE_ENV);
+console.log('根路径'+__dirname);
+console.log('<<========***************===========>>');
+
+
 const port = 14440;
+
+function assetsPath(_path) {
+    let assetsSubDirectory = process.env.NODE_ENV === 'production'
+        ? '/'
+        : 'static';
+    return path.posix.join(assetsSubDirectory, _path)
+}
 
 let config = {
     devServer: {
@@ -21,10 +34,10 @@ let config = {
     ],
     output: {
         filename: './bundle.js',
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, './build'),
         // [name] 默认是 ID，如果指定了chunkName则为指定的名字
         // [chunkhash] 对当前chunk 经过hash后得到的值，保证在chunk没有变化的时候hash不变，文件不需要更新，chunk变了后，可保证hash唯一，由于hash太长，这里截取了hash的12个字符足矣
-        chunkFilename: '/js/[name].[chunkhash:12].chunk.js'
+        chunkFilename: 'js/[name].[chunkhash:12].chunk.js'
     },
     module: {
         loaders: [
@@ -49,18 +62,34 @@ let config = {
             },
             // IMAGE
             {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 20000,
+                    name: assetsPath('images/[name].[hash:7].[ext]')
+                }
+            },
+            /*{
                 test: /\.(png|jpg)$/,
                 loader: 'url?limit=25000' //  limit 不大于 25KB 的话要自动在它从属的 css 文件中转成 BASE64 字符串。
-            },
+            },*/
             // FONT
             {
+                test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 10000,
+                    name: assetsPath('font/[name].[hash:7].[ext]')
+                }
+            },
+            /*{
                 test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "url-loader?limit=10000&mimetype=application/font-woff"
             },
             {
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
                 loader: "file-loader"
-            }
+            }*/
         ]
     },
     resolve: {

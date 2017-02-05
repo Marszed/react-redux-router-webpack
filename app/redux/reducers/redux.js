@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '../creater'
-import { INPUT_USERNAME, INPUT_PASSWORD, ASYNC_DATA, ASYNC_ACTION_DATA } from '../actions/redux'
+import { INPUT_USERNAME, INPUT_PASSWORD, ASYNC_DATA, ASYNC_ACTION_DATA } from '../actions/global'
 
 export default combineReducers({
     username: createReducer('', {
