@@ -48,6 +48,7 @@ class login extends React.Component {
                 <MyInput value="" name="email" title="Email" validations="isEmail" validationError="This is not a valid email" required />
                 <MyInput value="" name="password" title="Password" type="password" required />
                 <button type="submit" disabled={!this.state.canSubmit}>Submit</button>
+                <p>登录密码:123456</p>
             </Form>
         );
     }

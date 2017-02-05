@@ -37,6 +37,15 @@ import Login from './components/login/login.jsx';
  */
 import Tool from './lib/tool';
 
+// 登录验证
+const loginAuth = (nextState, replace) => {
+    if (!store.getState()['login']['loginInfo'] || store.getState()['login']['loginInfo']['password'] != '123456') {
+        // Redirect to Home page if not an Admin
+        replace({ pathname: '/' })
+    }
+};
+
+
 /**
  * 路由配置
  * 通过getComponent做路由懒加载
@@ -44,42 +53,55 @@ import Tool from './lib/tool';
 let routes = <Route path="/" component={App}>
     <IndexRoute component={Login}/>
     <Route path="home"
+           onEnter={loginAuth}
            getComponent = {(nextState,callback)=>{
                 require.ensure([],(require)=>{
                     callback(null,require("./components/home").default)
                 },"home")
             }}/>
-    <Route path="handle" name="新数据" getComponent={
+    <Route path="handle"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/handle").default)
             },"handle")
         }}/>
-    <Route path="handle" name="新数据" getComponent={
+    <Route path="handle"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/handle").default)
             },"handle")
         }}/>
-    <Route path="redux" getComponent={
+    <Route path="redux"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/redux").default)
             },"redux")
         }}/>
-    <Route path="lang" getComponent={
+    <Route path="lang"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/lang").default)
             },"lang")
         }}/>
-    <Route path="test" getComponent={
+    <Route path="test"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/test").default)
             },"test")
         }}/>
-    <Route path="validation" getComponent={
+    <Route path="validation"
+           onEnter={loginAuth}
+           getComponent={
         (nextState,callback)=>{
             require.ensure([],(require)=>{
                 callback(null,require("./components/validation").default)
